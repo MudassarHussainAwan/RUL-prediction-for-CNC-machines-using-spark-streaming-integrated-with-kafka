@@ -1,2 +1,3 @@
-# SOH prediction for CNC machines using spark streaming integrated with kafka
+# Remianing Useful Life (RUL) prediction for CNC machines using spark streaming integrated with kafka
+![](images/spark_streaming.png)
  
