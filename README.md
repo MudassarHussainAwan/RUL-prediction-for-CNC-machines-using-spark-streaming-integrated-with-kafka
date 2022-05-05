@@ -36,17 +36,18 @@ We may also create new topic with:
 
 
 # Run Locally:
+[kafkaStreamConsumer.py](kafka/kafkaStreamConsumer.py) can be run using spark-submit command where the additional jar files are needed for spark integration with kafka, will automaticaly be downloaded and added to the project
+
+ ```bash
+$ spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.3,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.3 kafkaStreamConsumer.py -r <rul_threshold>
+```
 [kafkaProducer.py](kafka/kafkaProducer.py) sends messages to the CNC-stream topic containing test set data:
  ```bash
 $ python3 kafkaProducer.py
 
 ```
 ![](images/stream.png)
-[kafkaStreamConsumer.py](kafka/kafkaStreamConsumer.py) can be run using spark-submit command where the additional jar files are needed for spark integration with kafka, will automaticaly be downloaded and added to the project
 
- ```bash
-$ spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.3,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.3 kafkaStreamConsumer.py -r <rul_threshold>
-```
 [kafkaAlertConsumer.py](kafka/kafkaAlertConsumer.py) gives alert when the predicted rul is less than a given threshold
 
  ```bash
