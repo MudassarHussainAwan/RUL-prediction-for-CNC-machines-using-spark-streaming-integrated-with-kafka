@@ -23,6 +23,11 @@ To open an interactive shell in the kafka container:
 $ docker exec -it kafka /bin/sh
 
 ```
+kafka shells are located in:
+```bash
+# cd /opt/kafka_2.13-2.8.1/bin
+# ls
+```
 Existing kafka topics can be enlisted using the following command:
 ```bash
 # kafka-topics.sh --list --zookeeper zookeeper:2181
