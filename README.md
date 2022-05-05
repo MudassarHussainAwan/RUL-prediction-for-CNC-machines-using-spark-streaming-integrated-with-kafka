@@ -3,7 +3,7 @@ This project simulates RUL prediction for CNC machines in real time. The project
 ![](images/spark_streaming.png)
 # Software Description
 Java 11 is recommmended as pyspark is not compatible with the more recent versions. More on this in [read_me](Softwares/java%2011/read_me.txt).
-Spark version 3.1.3 can be downloaded from ![Link](https://spark.apache.org/downloads.html). Version pre-built with scala 2.12 is recommended.   
+Spark version 3.1.3 can be downloaded from [Link](https://spark.apache.org/downloads.html). Version pre-built with scala 2.12 is recommended.   
 
 To run Kafka and zookeeper, download docker image from [Link](https://www.docker.com/products/docker-desktop/)   
 Docker compose is not needed to be installed separatley for mac os. To verify the installation enter following command in the terminal:
@@ -36,12 +36,20 @@ We may also create new topic with:
 
 
 # Run Locally:
-To run the simulations run the following commands in separate terminals simultaneously (Make sure you are in the [repository](/kafka) where .py files are located):
-
+[kafkaProducer.py](kafka/kafkaProducer.py) sends messages to the CNC-stream topic containing test set data:
  ```bash
-$ spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.3,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.3 kafkaStreamConsumer.py -r 110
-
-$ python3 kafkaAlertConsumer.py
-$ python3 KafkaProducer.py
+$ python3 kafkaProducer.py
 
 ```
+![](images/stream.png)
+[kafkaStreamConsumer.py](kafka/kafkaStreamConsumer.py) can be run using spark-submit command where the additional jar files are needed for spark integration with kafka, will automaticaly be downloaded and added to the project
+
+ ```bash
+$ spark-submit --master local[2] --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.1.3,org.apache.spark:spark-streaming-kafka-0-10_2.12:3.1.3 kafkaStreamConsumer.py -r <rul_threshold>
+```
+[kafkaAlertConsumer.py](kafka/kafkaAlertConsumer.py) gives alert when the predicted rul is less than a given threshold
+
+ ```bash
+$ python3 kafkaAlertConsumer.py
+```
+![](images/alert.png)
